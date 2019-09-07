@@ -2,24 +2,39 @@ import React, { Component } from 'react'
 import { Text, View , StyleSheet, TouchableOpacity, Image, LayoutAnimation, FlatList} from 'react-native'
 import { Color, LayoutConst } from '../../system/Collection';
 
+export var value = 'All Compositions'
+export var index = 0
+
 export default class Dropdown extends Component {
     constructor(props){
         super(props)
         this.state = {
-            expand : false
+            expand : false,
+            // value : value == null ? this.props.value : 'Value index 0'  
+            data: []
         }
     }
-	
+
+    componentDidMount(){
+        this.props.datadropdown.splice(0,0,{category: 'All Compositions'})
+        // value = this.props.datadropdown[0].category
+    }
+    
+    _setValue(newVal,newIndex) {
+        value = newVal,
+        index = newIndex
+    }
+
     render() {
         return (
             <View>
                  <TouchableOpacity
-                    style={[this.props.style, styles(this.state.expand).container]}
+                    style={[this.props.style, styles(this.state.expand).container,{alignItems:'stretch'}]}
                     onPress={() =>  this.setState({
                         expand : !this.state.expand
                     })}>
 
-                    <Text style={styles().buttonText}>{this.props.value}</Text>
+                    <Text style={[styles().buttonText,{fontFamily:'OpenSans-SemiBold'}]}>{value}</Text>
 
                     <TouchableOpacity 
                         onPress={() =>  this.setState({
@@ -46,7 +61,9 @@ export default class Dropdown extends Component {
                             <FlatList
                                 data={this.props.datadropdown}
                                 renderItem={({ item, index }) =>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={()=> [this.setState({
+                                        expand: !this.state.expand
+                                    }),this._setValue(item.category,index.toString())]}>
 
                                         <Text style={styles().buttonText}>{item.category}</Text>
 
@@ -113,5 +130,5 @@ const styles = (props) => StyleSheet.create({
         fontFamily: 'OpenSans-Regular',
         fontSize: LayoutConst.smallTextSize,
         color: Color.DARK_GREY
-    }
+    },
 })
