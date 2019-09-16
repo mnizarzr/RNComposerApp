@@ -3,7 +3,8 @@ export const Action = {
     CHECK_SIGNED : 'CHECK_SIGNED',
     CHANGE_STATE : 'CHANGE_STATE',
     CHANGE_MENU : 'CHANGE_MENU',
-    TOGGLE_MENU : 'TOGGLE_MENU'
+    TOGGLE_MENU : 'TOGGLE_MENU',
+    LOGOUT : 'LOGOUT'
 }
 
 export const AuthKey = {

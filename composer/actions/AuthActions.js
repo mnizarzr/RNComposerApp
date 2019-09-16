@@ -22,3 +22,9 @@ export function loginPost (this2) {
         dispatch({ type: Action.LOGIN_POST })
     }
 }
+
+export function logout () {
+    return (dispatch) => {
+        dispatch({ type: Action.LOGOUT })
+    }
+}
