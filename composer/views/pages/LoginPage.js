@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {View, StyleSheet, Text, StatusBar, TouchableOpacity, Dimensions} from 'react-native'
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, View, StyleSheet, Text, StatusBar } from 'react-native'
 import InputText from '../components/InputText';
 
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as Actions from '../../actions/AuthActions';
 import { Color, LayoutConst } from '../../system/Collection';
 import Button from '../components/Button';
@@ -12,46 +12,63 @@ class LoginPage extends Component {
 
     constructor(props) {
         super(props)
+
+        this.focusNextField = this.focusNextField.bind(this);
+        this.inputs = {};
+    }
+
+
+    focusNextField(id) {
+        this.inputs[id].focus();
     }
 
     render() {
-        return(
-            <View style={styles.container}>
+        return (
+            <KeyboardAvoidingView style={{ flex: 1 }}>
+                <View style={styles.container}>
+                    <StatusBar
+                        backgroundColor={Color.LIGHT_GREY}
+                        barStyle="dark-content"
+                    />
 
-                <StatusBar
-                    backgroundColor={Color.LIGHT_GREY}
-                    barStyle="dark-content"
-                />
+                    <Text
+                        style={styles.composerText}
+                        children="Composer" />
 
-                <Text
-                    style={styles.composerText}>
-                    Composer
-                </Text>
-                <Text
-                    style={styles.loginDescText}>
-                    Login using Remap account
-                </Text>
-                <InputText 
-                    placeholder={"Username"}
-                    background={Color.WHITE}
-                    inputType={"text"}
-                    style={styles.inputText}
-                    onChangeText={(text) => this.props.changeState('username', text)} />
-                <InputText 
-                    placeholder={"Password"}
-                    background={Color.WHITE}
-                    inputType={"password"}
-                    style={styles.inputText}
-                    onChangeText={(text) => this.props.changeState('password', text)} />
+                    <Text
+                        style={styles.loginDescText}
+                        children="Login using Remap account" />
 
-                <View style={styles.button}>
-                    <Button
-                        onPress={() => this.props.loginPost(this)}
-                        value="Sign in" />
+                    <InputText
+                        placeholder={"Username"}
+                        background={Color.WHITE}
+                        inputType={"text"}
+                        style={styles.inputText}
+                        returnKeyType="next"
+                        onChangeText={(text) => this.props.changeState('username', text)}
+                        onSubmitEditing={() => {
+                            this.focusNextField('password');
+                        }} />
+
+                    <InputText
+                        hasRef={(ref) => {
+                            this.inputs['password'] = ref;
+                        }}
+                        placeholder={"Password"}
+                        background={Color.WHITE}
+                        inputType={"password"}
+                        style={styles.inputText}
+                        secureTextEntry
+                        onChangeText={(text) => this.props.changeState('password', text)} />
+
+                    <View style={styles.button}>
+                        <Button
+                            onPress={() => this.props.loginPost(this)}
+                            value="Sign in" />
+                    </View>
+
                 </View>
-                
-                
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -63,7 +80,7 @@ const styles = StyleSheet.create({
         backgroundColor: Color.LIGHT_GREY
     },
     composerText: {
-        marginVertical: 100, 
+        marginVertical: 100,
         fontSize: LayoutConst.extraLargeTextSize,
         color: Color.BLACK,
         fontFamily: 'Rubik-Medium'
