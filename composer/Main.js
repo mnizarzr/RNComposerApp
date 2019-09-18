@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {View, AsyncStorage} from 'react-native'
-import {createAppContainer} from 'react-navigation'
-import {MainNavigator, HomeStack} from './system/Navigation'
-import {checkSigned} from './actions/AuthActions'
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
+import { View, AsyncStorage } from 'react-native'
+import { createAppContainer } from 'react-navigation'
+import { MainNavigator, HomeStack } from './system/Navigation'
+import { checkSigned } from './actions/AuthActions'
+import { connect } from 'react-redux'
 import { from } from 'rxjs';
 
 class Main extends Component {
@@ -16,9 +16,10 @@ class Main extends Component {
     }
 
     render() {
-        
+
         var MainNavigation = createAppContainer(MainNavigator(this.state.signedIn))
         return <MainNavigation />
+
     }
 }
 

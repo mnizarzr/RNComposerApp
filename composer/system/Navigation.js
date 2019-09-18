@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {createStackNavigator, createDrawerNavigator, createAppContainer} from 'react-navigation'
+import {createSwitchNavigator, createStackNavigator, createDrawerNavigator, createAppContainer} from 'react-navigation'
 
 import {CustomDrawerContentComponent} from '../views/components/DrawerNavigation'
 import HeaderLeft from '../views/components/HeaderLeft'
@@ -11,7 +11,7 @@ import HomePage from '../views/pages/HomePage';
 
 export const MainNavigator = (signedIn = false) => {
 
-    return createStackNavigator(
+    return createSwitchNavigator(
         {
             AuthStack: {
                 screen: LoginPage,
