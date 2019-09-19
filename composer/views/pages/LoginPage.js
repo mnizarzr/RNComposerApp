@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, StatusBar, TouchableOpacity, Image, KeyboardAvoidingView, ScrollView } from 'react-native'
 import InputText from '../components/InputText';
-import { Header } from 'react-navigation'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

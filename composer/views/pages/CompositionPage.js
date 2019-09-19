@@ -86,7 +86,9 @@ class CompositionPage extends Component {
                                             data={index == 0 ? this.state.data : this.state.data.filter((x)=>x.category === value)}
                                             numColumns={2}
                                             renderItem={({ item, index }) =>
-                                                <TouchableOpacity>
+                                                <TouchableOpacity
+                                                    onPress={() => this.props.navigation.navigate('Detail')}
+                                                >
 
                                                     <Card
                                                         item={item}

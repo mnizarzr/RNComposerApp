@@ -18,7 +18,7 @@ export function changeState (key, value) {
 
 export function loginPost (this2) {
     return (dispatch) => {
-        this2.props.navigation.navigate('HomeStack')
+        this2.props.navigation.navigate('Home')
         dispatch({ type: Action.LOGIN_POST })
     }
 }

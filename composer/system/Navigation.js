@@ -1,109 +1,126 @@
-import React, {Component} from 'react'
-import {createSwitchNavigator, createStackNavigator, createDrawerNavigator, createAppContainer} from 'react-navigation'
+import React from 'react'
+import { Dimensions, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { createAppContainer, createStackNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation'
+import { DrawerActions } from 'react-navigation-drawer'
 
-import {CustomDrawerContentComponent} from '../views/components/DrawerNavigation'
-import HeaderLeft from '../views/components/HeaderLeft'
 import LoginPage from '../views/pages/LoginPage'
 import CompositionPage from '../views/pages/CompositionPage'
-import MaterialPage from '../views/pages/MaterialPage'
 import HistoryPage from '../views/pages/HistoryPage'
-import HomePage from '../views/pages/HomePage';
+import MaterialPage from '../views/pages/MaterialPage'
+import DetailPage from '../views/pages/DetailPage'
+import SideMenu from '../views/components/SideMenuLayout'
+import { Color, LayoutConst } from './Collection'
 
-export const MainNavigator = (signedIn = false) => {
+const { width, height } = Dimensions.get('window')
 
-    return createSwitchNavigator(
+export const MainNavigator = (isSignedIn = false) => {
+
+    return createAppContainer(createSwitchNavigator(
         {
-            AuthStack: {
-                screen: LoginPage,
-                navigationOptions: ({ navigation }) => ({
-                    headerMode: null
-                }),
+            Auth: {
+                screen: LoginPage
             },
-            HomeStack: {
-                screen: HomePage,
+            Home: {
+                screen: Drawer
             }
         },
         {
-            initialRouteName: signedIn ? 'HomeStack' : 'AuthStack',
-            headerMode: 'none'
+            initialRouteName: isSignedIn ? "Home" : "Auth"
         }
-    )
+    ))
 
 }
 
-export const HomeDrawer = createDrawerNavigator(
+const Header = (props) => {
+    return <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} >
+        <Image
+            style={styles.headerLeftIcon}
+            source={require("../assets/images/drawer.png")}
+            resizeMode="contain" />
+    </TouchableOpacity>
+}
+
+const CompositionStack = createStackNavigator(
     {
         Composition: {
-            screen: () => <CompositionStack/>,
-            navigationOptions: {
-                drawerLabel: 'Composition'
-            }
+            screen: CompositionPage,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Composition',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} />,
+                headerTitleStyle: styles.headerTitle,
+
+            })
+        },
+        Detail: {
+            screen: DetailPage
+        }
+    }
+)
+
+const MaterialStack = createStackNavigator(
+    {
+        Material: {
+            screen: MaterialPage,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Material',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} />,
+                headerTitleStyle: styles.headerTitle,
+
+            })
+        }
+    }
+)
+
+const HistoryStack = createStackNavigator(
+    {
+        History: {
+            screen: HistoryPage,
+            navigationOptions: ({ navigation }) => ({
+                title: 'History',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} />,
+                headerTitleStyle: styles.headerTitle,
+
+            })
+        }
+    }
+)
+
+const Drawer = createDrawerNavigator(
+    {
+        Composition: {
+            screen: CompositionStack
         },
         Material: {
-            screen: () => <MaterialStack/>,
-            navigationOptions: {
-                drawerLabel: 'Material'
-            }
+            screen: MaterialStack
         },
         History: {
-            screen: () => <HistoryStack/>,
-            navigationOptions: {
-                drawerLabel: 'History'
-            }
+            screen: HistoryStack
         }
     },
     {
-        initialRouteName: 'Composition',
-        drawerPosition: 'left',
-        contentComponent: CustomDrawerContentComponent,
+        initialRouteName: "Composition",
+        contentComponent: SideMenu,
+        drawerWidth: width * 80 / 100,
+        drawerType: "slide",
+        overlayColor: '0%'
     }
-) 
+)
 
-let CompositionStack = createAppContainer(createStackNavigator(
-    {
-        CompositionHome: {
-            screen:() => <CompositionPage/>,
-            navigationOptions: ({ navigation }) => ({
-                title: 'Composition',
-                headerLeft: <HeaderLeft navigationProps={navigation} />,
-            }),
-
-        }, 
-
+const styles = StyleSheet.create({
+    headerStyle: {
+        elevation: 0
     },
-    {
-        initialRouteName: 'CompositionHome',
-    }
-))
-
-let MaterialStack = createAppContainer(createStackNavigator(
-    {
-        MaterialHome: {
-            screen: () => <MaterialPage/>,
-            navigationOptions: ({ navigation }) => ({
-                title: 'Material',
-                headerLeft: <HeaderLeft navigationProps={navigation} />,
-            }),
-        }, 
-
+    headerLeftIcon: {
+        width: LayoutConst.regularIconSize,
+        height: LayoutConst.regularIconSize,
+        marginHorizontal: LayoutConst.spacing
     },
-    {
-        initialRouteName: 'MaterialHome',
+    headerTitle: {
+        fontSize: LayoutConst.mediumTextSize,
+        fontFamily: 'Rubik-Medium',
+        color: Color.BLACK
     }
-))
-
-let HistoryStack = createAppContainer(createStackNavigator(
-    {
-        HistoryHome: {
-            screen: () => <HistoryPage/>,
-            navigationOptions: ({ navigation }) => ({
-                title: 'History',
-                headerLeft: <HeaderLeft navigationProps={navigation} />,
-            }),
-        }, 
-
-    },
-    {
-        initialRouteName: 'HistoryHome',
-    }
-))
+})

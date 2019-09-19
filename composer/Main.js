@@ -17,7 +17,7 @@ class Main extends Component {
 
     render() {
 
-        var MainNavigation = createAppContainer(MainNavigator(this.state.signedIn))
+        var MainNavigation = MainNavigator(this.state.signedIn)
         return <MainNavigation />
 
     }

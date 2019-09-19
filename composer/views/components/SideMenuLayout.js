@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Text, View, FlatList, Image, TouchableOpacity, StyleSheet} from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { LayoutConst, Color, Menu } from '../../system/Collection';
 
 
@@ -9,21 +9,25 @@ export default class SideMenuLayout extends Component {
     }
 
     render() {
-        return(
+
+        const { navigation } = this.props
+
+        return (
             <View style={styles.container}>
 
                 <FlatList
                     data={Menu}
                     style={styles.menuListContainer}
                     keyExtractor={(item) => item.id}
-                    renderItem={({item, index}) => 
+                    renderItem={({ item, index }) =>
                         <TouchableOpacity
-                            onPress={() => this.props.changeMenu(index) }>
+                            onPress={() => navigation.navigate(item.name)}>
                             <Text style={styles.menuText}>{item.name}</Text>
                         </TouchableOpacity>
                     } />
-                
-                <TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Auth")} >
                     <Text style={styles.menuText}>Logout</Text>
                 </TouchableOpacity>
 
