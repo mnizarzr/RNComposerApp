@@ -104,6 +104,7 @@ class CompositionPage extends Component {
                                 </View>
                             </ScrollView>
                             <TouchableOpacity 
+                                onPress={()=> this.props.navigation.navigate('Create')}
                                 style={{
                                     position: "absolute",
                                     bottom: 25,

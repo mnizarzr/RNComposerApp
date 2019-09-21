@@ -43,7 +43,7 @@ export default class Dropdown extends Component {
                         {
                             this.state.expand === false ? 
                                 <Image
-                                    style={styles().rightIcon}
+                                    style={[styles().rightIcon]}
                                     source={require("../../assets/images/dropdown.png")}
                                     resizeMode="center" />
                                 :
@@ -74,7 +74,7 @@ export default class Dropdown extends Component {
                             {
                                 this.props.add == true ?
                                     <View style={{marginTop: LayoutConst.spacing}}>
-                                        <TouchableOpacity style={{flexDirection: "row"}}>
+                                        <TouchableOpacity style={{flexDirection: "row"}} onPress={this.props.onPressAdd}>
                                             <Image
                                                 style={styles().leftIcon}
                                                 source={require("../../assets/images/plus-gold.png")}
@@ -102,7 +102,8 @@ const styles = (props) => StyleSheet.create({
         borderRadius: props === false ? 50 : 20,
         borderBottomStartRadius: props === false ? 50 : 0,
         borderBottomEndRadius: props === false ? 50 : 0,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent:'space-between'
     },
     expandContainer: {
         backgroundColor: Color.LIGHT_GREY,

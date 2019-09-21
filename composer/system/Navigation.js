@@ -8,6 +8,7 @@ import CompositionPage from '../views/pages/CompositionPage'
 import HistoryPage from '../views/pages/HistoryPage'
 import MaterialPage from '../views/pages/MaterialPage'
 import DetailPage from '../views/pages/DetailPage'
+import CreatePage from '../views/pages/CreatePage'
 import SideMenu from '../views/components/SideMenuLayout'
 import { Color, LayoutConst } from './Collection'
 
@@ -32,28 +33,47 @@ export const MainNavigator = (isSignedIn = false) => {
 }
 
 const Header = (props) => {
-    return <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} >
-        <Image
-            style={styles.headerLeftIcon}
-            source={require("../assets/images/drawer.png")}
-            resizeMode="contain" />
-    </TouchableOpacity>
+    return( 
+        props.back == false ?
+        <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} >
+            <Image
+                style={styles.headerLeftIcon}
+                source={require("../assets/images/drawer.png")}
+                resizeMode="contain" />
+        </TouchableOpacity>
+        :
+        <TouchableOpacity onPress={() => props.navigation.goBack()} >
+            <Image
+                style={styles.headerLeftIcon}
+                source={require("../assets/images/back.png")}
+                resizeMode="contain" />
+        </TouchableOpacity>
+    )
 }
 
 const CompositionStack = createStackNavigator(
     {
         Composition: {
-            screen: CompositionPage,
+            screen: CompositionPage,    
             navigationOptions: ({ navigation }) => ({
                 title: 'Composition',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} />,
+                headerLeft: <Header navigation={navigation} back={false} />,
                 headerTitleStyle: styles.headerTitle,
 
             })
         },
         Detail: {
             screen: DetailPage
+        },
+        Create: {
+            screen: CreatePage,
+            navigationOptions: ({navigation}) =>({
+                title: 'Create new composition',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} back={true} />,
+                headerTitleStyle: styles.headerTitleSmall,
+            })
         }
     }
 )
@@ -65,7 +85,7 @@ const MaterialStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title: 'Material',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} />,
+                headerLeft: <Header navigation={navigation} back={false} />,
                 headerTitleStyle: styles.headerTitle,
 
             })
@@ -80,7 +100,7 @@ const HistoryStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title: 'History',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} />,
+                headerLeft: <Header navigation={navigation} back={false} />,
                 headerTitleStyle: styles.headerTitle,
 
             })
@@ -120,6 +140,11 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: LayoutConst.mediumTextSize,
+        fontFamily: 'Rubik-Medium',
+        color: Color.BLACK
+    },
+    headerTitleSmall: {
+        fontSize: LayoutConst.smallTextSize,
         fontFamily: 'Rubik-Medium',
         color: Color.BLACK
     }
