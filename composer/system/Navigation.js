@@ -1,6 +1,11 @@
 import React from 'react'
 import { Dimensions, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { createAppContainer, createStackNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation'
+import {
+    createAppContainer,
+    createStackNavigator,
+    createDrawerNavigator,
+    createSwitchNavigator
+} from 'react-navigation'
 import { DrawerActions } from 'react-navigation-drawer'
 
 import LoginPage from '../views/pages/LoginPage'
@@ -33,20 +38,23 @@ export const MainNavigator = (isSignedIn = false) => {
 }
 
 const Header = (props) => {
-    return( 
-        props.back == false ?
-        <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} >
+
+    const { navigation, back } = props
+
+    return (
+        <TouchableOpacity onPress={() =>
+            back === false ?
+                navigation.dispatch(DrawerActions.toggleDrawer()) :
+                navigation.goBack()
+        }>
             <Image
                 style={styles.headerLeftIcon}
-                source={require("../assets/images/drawer.png")}
-                resizeMode="contain" />
-        </TouchableOpacity>
-        :
-        <TouchableOpacity onPress={() => props.navigation.goBack()} >
-            <Image
-                style={styles.headerLeftIcon}
-                source={require("../assets/images/back.png")}
-                resizeMode="contain" />
+                source={
+                    back === false ?
+                        require("../assets/images/drawer.png") :
+                        require("../assets/images/back.png")
+                }
+                resizeMode="contain"/>
         </TouchableOpacity>
     )
 }
@@ -54,24 +62,27 @@ const Header = (props) => {
 const CompositionStack = createStackNavigator(
     {
         Composition: {
-            screen: CompositionPage,    
+            screen: CompositionPage,
             navigationOptions: ({ navigation }) => ({
                 title: 'Composition',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} back={false} />,
+                headerLeft: <Header navigation={navigation} back={false}/>,
                 headerTitleStyle: styles.headerTitle,
 
             })
         },
         Detail: {
-            screen: DetailPage
+            screen: DetailPage,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
         },
         Create: {
             screen: CreatePage,
-            navigationOptions: ({navigation}) =>({
+            navigationOptions: ({ navigation }) => ({
                 title: 'Create new composition',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} back={true} />,
+                headerLeft: <Header navigation={navigation} back={true}/>,
                 headerTitleStyle: styles.headerTitleSmall,
             })
         }
@@ -85,7 +96,7 @@ const MaterialStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title: 'Material',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} back={false} />,
+                headerLeft: <Header navigation={navigation} back={false}/>,
                 headerTitleStyle: styles.headerTitle,
 
             })
@@ -100,7 +111,7 @@ const HistoryStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title: 'History',
                 headerStyle: styles.headerStyle,
-                headerLeft: <Header navigation={navigation} back={false} />,
+                headerLeft: <Header navigation={navigation} back={false}/>,
                 headerTitleStyle: styles.headerTitle,
 
             })
@@ -121,11 +132,11 @@ const Drawer = createDrawerNavigator(
         }
     },
     {
-        initialRouteName: "Composition",
         contentComponent: SideMenu,
         drawerWidth: width * 80 / 100,
         drawerType: "slide",
-        overlayColor: '0%'
+        overlayColor: '0%',
+        order: ["Composition", "Material", "History"]
     }
 )
 
