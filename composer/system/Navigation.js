@@ -68,7 +68,6 @@ const CompositionStack = createStackNavigator(
                 headerStyle: styles.headerStyle,
                 headerLeft: <Header navigation={navigation} back={false}/>,
                 headerTitleStyle: styles.headerTitle,
-
             })
         },
         Detail: {
@@ -83,11 +82,16 @@ const CompositionStack = createStackNavigator(
                 title: 'Create new composition',
                 headerStyle: styles.headerStyle,
                 headerLeft: <Header navigation={navigation} back={true}/>,
-                headerTitleStyle: styles.headerTitleSmall,
+                headerTitleStyle: styles.headerTitleSmall
             })
         }
     }
 )
+
+CompositionStack.navigationOptions = ({ navigation, screenProps }) => {
+    if (navigation.state.index === 0) screenProps.drawerLockMode = 'unlocked'
+    else screenProps.drawerLockMode = 'locked-closed'
+}
 
 const MaterialStack = createStackNavigator(
     {
@@ -104,6 +108,11 @@ const MaterialStack = createStackNavigator(
     }
 )
 
+MaterialStack.navigationOptions = ({ navigation, screenProps }) => {
+    if (navigation.state.index === 0) screenProps.drawerLockMode = 'unlocked'
+    else screenProps.drawerLockMode = 'locked-closed'
+}
+
 const HistoryStack = createStackNavigator(
     {
         History: {
@@ -118,6 +127,11 @@ const HistoryStack = createStackNavigator(
         }
     }
 )
+
+HistoryStack.navigationOptions = ({ navigation, screenProps }) => {
+    if (navigation.state.index === 0) screenProps.drawerLockMode = 'unlocked'
+    else screenProps.drawerLockMode = 'locked-closed'
+}
 
 const Drawer = createDrawerNavigator(
     {
@@ -135,8 +149,7 @@ const Drawer = createDrawerNavigator(
         contentComponent: SideMenu,
         drawerWidth: width * 80 / 100,
         drawerType: "slide",
-        overlayColor: '0%',
-        order: ["Composition", "Material", "History"]
+        overlayColor: '0%'
     }
 )
 

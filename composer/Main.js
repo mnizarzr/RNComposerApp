@@ -17,8 +17,8 @@ class Main extends Component {
 
     render() {
 
-        var MainNavigation = MainNavigator(this.state.signedIn)
-        return <MainNavigation />
+        const MainNavigation = MainNavigator(this.state.signedIn);
+        return <MainNavigation screenProps={{ drawerLockMode: 'locked-closed' }}/>
 
     }
 }
