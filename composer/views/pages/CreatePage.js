@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Color, LayoutConst } from '../../system/Collection'
 import InputText from "../components/InputText";
 import Dropdown from '../components/Dropdown';
+import ImagePicker from 'react-native-image-picker'
+import ImageCrop from 'react-native-image-crop-picker'
 
 const { width, height } = Dimensions.get('window')
 
@@ -28,14 +30,27 @@ class CreatePage extends React.Component {
         }
     }
 
+    _imagePicker = () => {
+        ImagePicker.showImagePicker(image => {
+            console.log("Image: ", image)
+            if (image.didCancel) console.log('User cancelled image picker');
+            else if (image.error) console.log('ImagePicker Error: ', image.error);
+            ImageCrop.openCropper({
+                path: image.uri,
+                width: 480,
+                height: 480,
+                cropping: true
+            }).then(img => this.setState({ image: img.path }))
+        })
+    }
+
     render() {
         return (
             <View style={styles().container}>
 
                 <View style={{ alignItems: 'center', marginVertical: 20, width: "100%" }}>
 
-                    <TouchableOpacity
-                    onPress={() => undefined}>
+                    <TouchableOpacity onPress={() => this._imagePicker()}>
                         <View style={styles().imageContainer}>
                             {
                                 this.state.image === null ?
@@ -50,7 +65,8 @@ class CreatePage extends React.Component {
                                             }}
                                             children="Composition Image"
                                         />
-                                    </View> : <View/>
+                                    </View> :
+                                    <Image style={{ flex: 1, borderRadius: 14 }} source={{ uri: this.state.image }}/>
                             }
                         </View>
                     </TouchableOpacity>

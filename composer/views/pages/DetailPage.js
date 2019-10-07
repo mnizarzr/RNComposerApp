@@ -48,9 +48,28 @@ class DetailPage extends React.Component {
                 },
             ],
         };
+
+        this.pressInterval = null;
+        this.incrementValue = this._incrementValue.bind(this);
+        this.decrementValue = this._decrementValue.bind(this);
+        this.stopPressInterval = this._stopPressInterval.bind(this);
     }
 
     _closeModal = () => this.setState({ modalVisibility: false });
+
+    _incrementValue = () => {
+        this.setState({ makeValue: this.state.makeValue + 1 });
+        this.pressInterval = setTimeout(this._incrementValue, 50);
+    }
+
+    _decrementValue = () => {
+        this.setState({ makeValue: this.state.makeValue - 1 });
+        this.pressInterval = setTimeout(this._decrementValue, 50);
+    }
+
+    _stopPressInterval() {
+        clearTimeout(this.pressInterval);
+    }
 
     render() {
         return <View style={styles().container}>
@@ -75,7 +94,10 @@ class DetailPage extends React.Component {
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                            <TouchableOpacity onPress={() => this.setState({ makeValue: this.state.makeValue - 1 })}>
+                            <TouchableOpacity
+                                onPressIn={this.decrementValue}
+                                onPressOut={this.stopPressInterval}
+                            >
                                 <Image
                                     style={styles().icon}
                                     source={require('../../assets/images/minus-circle.png')}
@@ -89,7 +111,10 @@ class DetailPage extends React.Component {
                                 />
                             </View>
 
-                            <TouchableOpacity onPress={() => this.setState({ makeValue: this.state.makeValue + 1 })}>
+                            <TouchableOpacity
+                                onPressIn={this.incrementValue}
+                                onPressOut={this.stopPressInterval}
+                            >
                                 <Image
                                     style={styles().icon}
                                     source={require('../../assets/images/plus-circle.png')}
