@@ -34,16 +34,16 @@ class CompositionPage extends Component {
                     category: 'Food',
                     productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
                 },
-                {
-                    name: 'Chaos',
-                    category: 'Snack',
-                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
-                },
-                {
-                    name: 'Chaos',
-                    category: 'Snack',
-                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
-                },
+                // {
+                //     name: 'Chaos',
+                //     category: 'Snack',
+                //     productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
+                // },
+                // {
+                //     name: 'Chaos',
+                //     category: 'Snack',
+                //     productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
+                // },
                 {
                     name: 'Chaos',
                     category: 'Snack',
@@ -66,13 +66,14 @@ class CompositionPage extends Component {
                     category: 'Drink',
                 }
             ],
-            loading: false
+            loading: false,
+            tempIndex : index
         }
     }
 
     _onRefresh() {
         this.setState({
-            loading: index !== index
+            loading: index != index ? true : false
         })
     }
 

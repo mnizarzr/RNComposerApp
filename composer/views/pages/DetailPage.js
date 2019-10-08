@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { Color, LayoutConst } from '../../system/Collection';
 import DetailCompositionTable from '../components/DetailCompositionTable';
 import Button from '../components/Button';
+import InputText from "../components/InputText";
 import Modal from 'react-native-modal';
 
 const { width, height } = Dimensions.get('window');
@@ -58,13 +59,15 @@ class DetailPage extends React.Component {
     _closeModal = () => this.setState({ modalVisibility: false });
 
     _incrementValue = () => {
-        this.setState({ makeValue: this.state.makeValue + 1 });
-        this.pressInterval = setTimeout(this._incrementValue, 50);
+        this.setState({ makeValue: parseInt(this.state.makeValue) + 1 });
+        this.pressInterval = setTimeout(this._incrementValue, 100);
     }
 
     _decrementValue = () => {
-        this.setState({ makeValue: this.state.makeValue - 1 });
-        this.pressInterval = setTimeout(this._decrementValue, 50);
+        if (this.state.makeValue > 0) {
+            this.setState({ makeValue: this.state.makeValue - 1 });
+            this.pressInterval = setTimeout(this._decrementValue, 100);
+        }
     }
 
     _stopPressInterval() {
@@ -94,23 +97,35 @@ class DetailPage extends React.Component {
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                            <TouchableOpacity
-                                onPressIn={this.decrementValue}
-                                onPressOut={this.stopPressInterval}
-                            >
+                            {
+                                this.state.makeValue == 0 ?
                                 <Image
                                     style={styles().icon}
                                     source={require('../../assets/images/minus-circle.png')}
                                 />
-                            </TouchableOpacity>
+                                :
+                                <TouchableOpacity
+                                    onPressIn={this.decrementValue}
+                                    onPressOut={this.stopPressInterval}
+                                >
+                                    <Image
+                                        style={styles().icon}
+                                        source={require('../../assets/images/minus-circle.png')}
+                                    />
+                                </TouchableOpacity>
+                            }
 
                             <View style={styles().makeValue}>
-                                <Text
-                                    style={{ textAlign: 'center', color: 'black' }}
-                                    children={this.state.makeValue.toString()}
+                                <InputText
+                                    value={this.state.makeValue.toString()}
+                                    onChangeText={(text)=> this.setState({makeValue: text})}
+                                    returnKeyType="next"
+                                    keyboardType={'number-pad'}
+                                    background={Color.LIGHT_GREY}
+                                    // style={{ borderWidth: 1, borderColor: Color.COLOR_PRIMARY, minWidth: 50}}
                                 />
                             </View>
-
+                            
                             <TouchableOpacity
                                 onPressIn={this.incrementValue}
                                 onPressOut={this.stopPressInterval}
@@ -123,7 +138,7 @@ class DetailPage extends React.Component {
 
                         </View>
 
-                        <Button value="Make"/>
+                        <Button value="Make" onPress={() => alert(this.state.makeValue)} />
 
                     </View>
                 </View>
