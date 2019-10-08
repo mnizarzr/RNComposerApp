@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput, StyleSheet, TextInputProps } from 'react-native'
 import { LayoutConst } from '../../system/Collection';
+import PropTypes from 'prop-types';
 
 type Props = {
     hasRef?: () => void
@@ -33,6 +34,10 @@ export default class InputText extends React.Component<TextInputProps, Props> {
             placeholder={this.props.placeholder}
             onSubmitEditing={this.onSubmitEditing.bind(this)} />
     }
+}
+
+InputText.propTypes = {
+    background: PropTypes.string
 }
 
 const styles = (props) => StyleSheet.create({
