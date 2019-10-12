@@ -154,9 +154,10 @@ class CreatePage extends React.Component {
 
                     <InputText
                         placeholder={'Composition Name'}
+                        placeholderTextColor={Color.GREY}
                         returnKeyType="next"
                         background={Color.LIGHT_GREY}
-                        style={{ marginBottom: LayoutConst.spacing }}
+                        style={styles().textInput}
                         onSubmitEditing={() => {
                             this.focusNextField('description');
                         }}
@@ -168,8 +169,9 @@ class CreatePage extends React.Component {
                             this.inputs['description'] = ref;
                         }}
                         placeholder={'Description (optional)'}
+                        placeholderTextColor={Color.GREY}
                         background={Color.LIGHT_GREY}
-                        style={{ marginBottom: LayoutConst.spacing }}
+                        style={styles().textInput}
                         onChangeText={(text) => this.setState({ description: text })}
                         onSubmitEditing={Keyboard.dismiss}
                     />
@@ -291,6 +293,10 @@ const styles = props => StyleSheet.create({
     icon: {
         width: 15,
         height: 15,
+    },
+    textInput: {
+        marginBottom: LayoutConst.spacing,
+        color: Color.BLACK,
     },
 });
 

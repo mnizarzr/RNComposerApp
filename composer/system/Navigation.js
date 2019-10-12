@@ -88,9 +88,15 @@ const CompositionStack = createStackNavigator(
     }
 )
 
-CompositionStack.navigationOptions = ({ navigation, screenProps }) => {
-    if (navigation.state.index === 0) screenProps.drawerLockMode = 'unlocked'
-    else screenProps.drawerLockMode = 'locked-closed'
+CompositionStack.navigationOptions = ({ navigation }) => {
+    let drawerLockMode = 'unlocked';
+    if (navigation.state.index > 0) {
+        drawerLockMode = 'locked-closed';
+    }
+
+    return {
+        drawerLockMode,
+    };
 }
 
 const MaterialStack = createStackNavigator(
@@ -108,9 +114,15 @@ const MaterialStack = createStackNavigator(
     }
 )
 
-MaterialStack.navigationOptions = ({ navigation, screenProps }) => {
-    if (navigation.state.index === 0) screenProps.drawerLockMode = 'unlocked'
-    else screenProps.drawerLockMode = 'locked-closed'
+MaterialStack.navigationOptions = ({ navigation }) => {
+    let drawerLockMode = 'unlocked';
+    if (navigation.state.index > 0) {
+        drawerLockMode = 'locked-closed';
+    }
+
+    return {
+        drawerLockMode,
+    };
 }
 
 const HistoryStack = createStackNavigator(
@@ -128,9 +140,15 @@ const HistoryStack = createStackNavigator(
     }
 )
 
-HistoryStack.navigationOptions = ({ navigation, screenProps }) => {
-    if (navigation.state.index === 0) screenProps.drawerLockMode = 'unlocked'
-    else screenProps.drawerLockMode = 'locked-closed'
+HistoryStack.navigationOptions = ({ navigation }) => {
+    let drawerLockMode = 'unlocked';
+    if (navigation.state.index > 0) {
+        drawerLockMode = 'locked-closed';
+    }
+
+    return {
+        drawerLockMode,
+    };
 }
 
 const Drawer = createDrawerNavigator(

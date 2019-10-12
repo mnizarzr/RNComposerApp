@@ -125,7 +125,7 @@ class DetailPage extends React.Component {
                                     // style={{ borderWidth: 1, borderColor: Color.COLOR_PRIMARY, minWidth: 50}}
                                 />
                             </View>
-                            
+
                             <TouchableOpacity
                                 onPressIn={this.incrementValue}
                                 onPressOut={this.stopPressInterval}
@@ -170,7 +170,7 @@ class DetailPage extends React.Component {
                         style={{ position: 'absolute', top: 14, right: 14 }}>
                         <Image
                             style={{ width: 20, height: 20, resizeMode: 'contain' }}
-                            source={require('../../assets/images/close.png')}
+                            source={require('../../assets/images/close-white.png')}
                         />
                     </TouchableOpacity>
 

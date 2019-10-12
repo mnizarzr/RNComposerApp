@@ -30,7 +30,7 @@ export default class InputText extends React.Component<TextInputProps, Props> {
         return <TextInput
             {...this.props}
             ref={ref => (this.inputRef = ref)}
-            style={[this.props.style, styles(this.props).container]}
+            style={[styles(this.props).container, this.props.style]}
             placeholder={this.props.placeholder}
             onSubmitEditing={this.onSubmitEditing.bind(this)} />
     }
