@@ -252,6 +252,7 @@ class CreatePage extends React.Component {
                     {/* <View style={{width: '100%' , minHeight: width/2, alignItems:'flex-end'}}> */}
 
                     <Button
+                        onPress={() => this.props.navigation.navigate("AddMaterialPage")}
                         backgroundColor={
                             this.state.compositionName === '' || null || this.state.description === '' || null || this.state.dropdownIndex === 0 || null ?
                                 Color.LIGHT_GREY :

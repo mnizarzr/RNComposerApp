@@ -14,6 +14,8 @@ import HistoryPage from '../views/pages/HistoryPage'
 import MaterialPage from '../views/pages/MaterialPage'
 import DetailPage from '../views/pages/DetailPage'
 import CreatePage from '../views/pages/CreatePage'
+import AddMaterialPage from "../views/pages/CreateAddMaterialPage";
+import SelectMaterial from "../views/pages/SelectMaterial";
 import SideMenu from '../views/components/SideMenuLayout'
 import { Color, LayoutConst } from './Collection'
 
@@ -82,6 +84,35 @@ const CompositionStack = createStackNavigator(
                 title: 'Create new composition',
                 headerStyle: styles.headerStyle,
                 headerLeft: <Header navigation={navigation} back={true}/>,
+                headerTitleStyle: styles.headerTitleSmall
+            })
+        },
+        AddMaterialPage: {
+            screen: AddMaterialPage,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Create new composition',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} back={true}/>,
+                headerTitleStyle: styles.headerTitleSmall
+            })
+        },
+        SelectMaterial: {
+            screen: SelectMaterial,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Select Material',
+                headerStyle: styles.headerStyle,
+                headerLeft: null,
+                headerRight: (
+                    <TouchableOpacity
+                        style={{ marginRight: LayoutConst.spacing }}
+                        onPress={() => navigation.goBack()}>
+                        <Image
+                            source={require('../assets/images/close.png')}
+                            style={{ width: 18, height: 18 }}
+                            resizeMode={'contain'}
+                        />
+                    </TouchableOpacity>
+                ),
                 headerTitleStyle: styles.headerTitleSmall
             })
         }
