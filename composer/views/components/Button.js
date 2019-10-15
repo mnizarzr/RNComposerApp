@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Color, LayoutConst } from '../../system/Collection';
+import PropTypes from 'prop-types';
 
-
-export default class Button extends Component {
+export default class Button extends Component<TouchableOpacityProps> {
 
     constructor(props) {
         super(props);
@@ -23,11 +23,16 @@ export default class Button extends Component {
     }
 }
 
+Button.propTypes = {
+    borderRadius: PropTypes.number,
+    backgroundColor: PropTypes.string
+}
+
 const styles = (props) => StyleSheet.create({
     container: {
         backgroundColor: props.backgroundColor !== undefined ? props.backgroundColor : Color.COLOR_PRIMARY,
         padding: LayoutConst.regularSpacing,
-        borderRadius: LayoutConst.roundedCorner,
+        borderRadius: props.borderRadius !== undefined ? props.borderRadius : LayoutConst.roundedCorner,
         justifyContent: 'center',
         alignItems: 'center',
     },

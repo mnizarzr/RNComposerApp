@@ -12,6 +12,7 @@ import LoginPage from '../views/pages/LoginPage'
 import CompositionPage from '../views/pages/CompositionPage'
 import HistoryPage from '../views/pages/HistoryPage'
 import MaterialPage from '../views/pages/MaterialPage'
+import AddNewMaterial from "../views/pages/AddNewMaterial";
 import DetailPage from '../views/pages/DetailPage'
 import CreatePage from '../views/pages/CreatePage'
 import AddMaterialPage from "../views/pages/CreateAddMaterialPage";
@@ -140,6 +141,15 @@ const MaterialStack = createStackNavigator(
                 headerLeft: <Header navigation={navigation} back={false}/>,
                 headerTitleStyle: styles.headerTitle,
 
+            })
+        },
+        AddNewMaterial: {
+            screen: AddNewMaterial,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Add New Material',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} back={true}/>,
+                headerTitleStyle: styles.headerTitle,
             })
         }
     }
