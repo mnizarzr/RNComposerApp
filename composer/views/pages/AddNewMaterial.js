@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Color, LayoutConst } from "../../system/Collection";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
+import NewDropdown from '../components/NewDropdown';
 
 class AddNewMaterial extends React.Component {
 
@@ -20,18 +21,17 @@ class AddNewMaterial extends React.Component {
                     background={Color.LIGHT_GREY}
                     placeholder="Material name"
                 />
-                <View style={{ flexDirection: 'row' }}>
+                {/*<View style={{ flexDirection: 'row' }}>*/}
                     <InputText
                         style={{ flex: 1, marginRight: 10 }}
                         background={Color.LIGHT_GREY}
                         placeholder="Stock"
                     />
-                    <InputText
-                        style={{ flex: 1, marginLeft: 10 }}
-                        background={Color.LIGHT_GREY}
-                        placeholder="Select Unit"
+                    <NewDropdown
+                        selectedValue={"Tiga"}
+                        options={['Satu', 'Dua', 'Tiga']}
                     />
-                </View>
+                {/*</View>*/}
 
                 <View style={{ flex: 1 }}/>
 
