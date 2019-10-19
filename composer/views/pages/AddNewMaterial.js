@@ -11,6 +11,10 @@ class AddNewMaterial extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            selectedValue: ''
+        }
+
     }
 
     render() {
@@ -21,17 +25,21 @@ class AddNewMaterial extends React.Component {
                     background={Color.LIGHT_GREY}
                     placeholder="Material name"
                 />
-                {/*<View style={{ flexDirection: 'row' }}>*/}
+                <View style={{ flexDirection: 'row' }}>
                     <InputText
-                        style={{ flex: 1, marginRight: 10 }}
+                        keyboardType={"number-pad"}
+                        style={{ flex: 1, maxHeight: 50, marginBottom: 20, marginRight: LayoutConst.spacing * 0.5 }}
                         background={Color.LIGHT_GREY}
                         placeholder="Stock"
                     />
                     <NewDropdown
-                        selectedValue={"Tiga"}
-                        options={['Satu', 'Dua', 'Tiga']}
+                        style={{ flex: 1, marginBottom: 20, marginLeft: LayoutConst.spacing * 0.5 }}
+                        title="Unit"
+                        selectedValue={this.state.selectedValue !== '' ? this.state.selectedValue : undefined}
+                        onValueChange={(value, index) => this.setState({ selectedValue: value })}
+                        options={['gram', 'mililiter', 'liter']}
                     />
-                {/*</View>*/}
+                </View>
 
                 <View style={{ flex: 1 }}/>
 
