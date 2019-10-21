@@ -15,21 +15,6 @@ export const AuthKey = {
 
 }
 
-export const Menu = [
-    {
-        id: "0",
-        name: "Composition"
-    },
-    {
-        id: "1",
-        name: "Material"
-    },
-    {
-        id: "2",
-        name: "History"
-    }
-]
-
 export const Color = {
     WHITE : '#FFFFFF',
     BLACK : '#444444',
