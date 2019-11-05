@@ -13,10 +13,11 @@ import {
 import { connect } from 'react-redux'
 import { Color, LayoutConst } from '../../system/Collection';
 import Button from '../components/Button';
-import Dropdown, { value, index } from '../components/Dropdown';
+import Dropdown from '../components/NewDropdown';
 import Card from '../components/Card';
 
-const { width, height } = Dimensions.get('window')
+
+const { width, height } = Dimensions.get('window');
 
 class CompositionPage extends Component {
 
@@ -67,17 +68,32 @@ class CompositionPage extends Component {
                 }
             ],
             loading: false,
-            tempIndex : index
+            index: 0,
+            value: ''
         }
     }
 
     _onRefresh() {
         this.setState({
-            loading: index != index ? true : false
+            loading: index !== index
         })
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("Prev State", prevState);
+        console.log("This State", this.state);
+    }
+
     render() {
+
+        let dropdownOptions = this.state.dataCategory.map(el => {
+            return el.category
+        });
+
+        dropdownOptions.splice('0','0', 'All Composition');
+
+        console.log(dropdownOptions);
+
         return (
             <View style={styles.container}>
                 {
@@ -86,7 +102,7 @@ class CompositionPage extends Component {
                             <ActivityIndicator
                                 size={36}
                                 style={{ alignSelf: 'center' }}
-                                color={'#666'}/>
+                                color={'#666'} />
                         </View>
                         :
                         this.state.data.length > 0 ?
@@ -94,12 +110,16 @@ class CompositionPage extends Component {
                                 <ScrollView showsVerticalScrollIndicator={false}>
                                     <View>
                                         <View style={styles.dropdown}>
-                                            <Dropdown value="All Composition" datadropdown={this.state.dataCategory}/>
+                                            <Dropdown
+                                                selectedValue={"All Composition"}
+                                                onValueChange={(value, index) => this.setState({ value, index })}
+                                                options={dropdownOptions}
+                                            />
                                         </View>
 
                                         <View style={{ marginTop: LayoutConst.spacing }}>
                                             <FlatList
-                                                data={index === 0 ? this.state.data : this.state.data.filter((x) => x.category === value)}
+                                                data={this.state.index === 0 ? this.state.data : this.state.data.filter((x) => x.category === this.state.value)}
                                                 numColumns={2}
                                                 renderItem={({ item, index }) =>
                                                     <TouchableOpacity
@@ -108,7 +128,7 @@ class CompositionPage extends Component {
 
                                                         <Card
                                                             item={item}
-                                                            index={index}/>
+                                                            index={index} />
 
                                                     </TouchableOpacity>
                                                 }
@@ -133,7 +153,7 @@ class CompositionPage extends Component {
                                         alignContent: 'center'
                                     }}>
                                     <Image style={{ width: 24, height: 24, alignSelf: 'center' }}
-                                           source={require('../../assets/images/plus-dark.png')}/>
+                                        source={require('../../assets/images/plus-dark.png')} />
                                 </TouchableOpacity>
                             </View>
                             :
@@ -141,7 +161,7 @@ class CompositionPage extends Component {
                                 <Text style={styles.text}>You haven't create a composition yet</Text>
 
                                 <View style={styles.button}>
-                                    <Button value="Create new composition"/>
+                                    <Button value="Create new composition" />
                                 </View>
                             </View>
                 }

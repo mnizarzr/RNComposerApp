@@ -16,6 +16,7 @@ import Button from '../components/Button';
 import ImagePicker from 'react-native-image-picker';
 import ImageCrop from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
+import Dropdown from '../components/NewDropdown';
 
 const { width, height } = Dimensions.get('window');
 
@@ -37,13 +38,12 @@ class CreatePage extends React.Component {
                 },
             ],
             image: null,
-            expand: false,
-            value: 'Select Category',
+            dropdownValue: '',
+            dropdownIndex: 0,
             modalVisibility: false,
             newCategory: '',
             compositionName: '',
             description: '',
-            dropdownIndex: 0,
         };
         this.inputs = {};
         this.focusNextField = this.focusNextField.bind(this);
@@ -76,6 +76,11 @@ class CreatePage extends React.Component {
     }
 
     render() {
+
+        let dropdownOptions = this.state.dataCategory.map(el => {
+            return el.category
+        });
+
         return (
             <View style={styles().container}>
 
@@ -98,7 +103,7 @@ class CreatePage extends React.Component {
                                 children="Add New Category"
                             />
                             <TouchableOpacity onPress={() => this._modalAction()}>
-                                <Image style={styles().icon} source={require('../../assets/images/close.png')}/>
+                                <Image style={styles().icon} source={require('../../assets/images/close.png')} />
                             </TouchableOpacity>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -113,7 +118,7 @@ class CreatePage extends React.Component {
 
                             </View>
 
-                            <Button value="Save"/>
+                            <Button value="Save" />
 
                         </View>
                     </View>
@@ -133,7 +138,7 @@ class CreatePage extends React.Component {
                                 {
                                     this.state.image === null ?
                                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Image source={require('../../assets/images/plus-dark.png')}/>
+                                            <Image source={require('../../assets/images/plus-dark.png')} />
                                             <Text
                                                 style={{
                                                     textAlign: 'center',
@@ -145,7 +150,7 @@ class CreatePage extends React.Component {
                                             />
                                         </View> :
                                         <Image style={{ flex: 1, borderRadius: 14 }}
-                                               source={{ uri: this.state.image }}/>
+                                            source={{ uri: this.state.image }} />
                                 }
                             </View>
                         </TouchableOpacity>
@@ -177,74 +182,11 @@ class CreatePage extends React.Component {
                     />
 
                     {/* Dropdown */}
-
-                    <View>
-                        <TouchableOpacity
-                            style={[this.props.style, dropdownStyles(this.state.expand).container, { alignItems: 'stretch' }]}
-                            onPress={() => this.setState({
-                                expand: !this.state.expand,
-                            })}>
-
-                            <Text
-                                style={[dropdownStyles().buttonText, { fontFamily: 'OpenSans-SemiBold' }]}>{this.state.value}</Text>
-
-                            <TouchableOpacity
-                                onPress={() => this.setState({
-                                    expand: !this.state.expand,
-                                })}>
-                                {
-                                    this.state.expand === false ?
-                                        <Image
-                                            style={[dropdownStyles().rightIcon]}
-                                            source={require('../../assets/images/dropdown.png')}
-                                            resizeMode="center"/>
-                                        :
-                                        <Image
-                                            style={dropdownStyles().rightIcon}
-                                            source={require('../../assets/images/collapse.png')}
-                                            resizeMode="center"/>
-                                }
-                            </TouchableOpacity>
-
-                        </TouchableOpacity>
-                        {
-                            this.state.expand === true ?
-                                <View style={[dropdownStyles(this.state.expand).expandContainer, {}]}>
-                                    <FlatList
-                                        data={this.state.dataCategory}
-                                        renderItem={({ item, index }) =>
-                                            <TouchableOpacity onPress={() => this.setState({
-                                                expand: !this.state.expand,
-                                                value: item.category,
-                                                dropdownIndex: index.toString(),
-                                            })}>
-
-                                                <Text style={dropdownStyles().buttonText}>{item.category}</Text>
-
-                                            </TouchableOpacity>
-                                        }
-                                        keyExtractor={(item, index) => index.toString()}
-                                    />
-
-                                    <View style={{ marginTop: LayoutConst.spacing }}>
-                                        <TouchableOpacity style={{ flexDirection: 'row' }}
-                                                          onPress={() => this._modalAction()}>
-                                            <Image
-                                                style={dropdownStyles().leftIcon}
-                                                source={require('../../assets/images/plus-gold.png')}
-                                                resizeMode="center"/>
-
-                                            <Text style={[dropdownStyles().buttonText, { color: Color.COLOR_PRIMARY }]}>Add
-                                                New Category</Text>
-                                        </TouchableOpacity>
-                                    </View>
-
-                                </View>
-                                :
-                                <View/>
-                        }
-                    </View>
-
+                        <Dropdown
+                            title="Select Category"
+                            onValueChange={(value, index) => this.setState({ dropdownValue: value, dropdownIndex: index })}
+                            options={dropdownOptions}
+                        />
                     {/* End of Dropdown */}
 
                     {/* Button Next */}

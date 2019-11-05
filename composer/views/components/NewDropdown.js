@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Touchable from './PlatformTouchable';
 import { Color, LayoutConst } from '../../system/Collection';
 import { withNavigation } from 'react-navigation';
+import Reactotron from 'reactotron-react-native'
 
 class NewDropdown extends React.Component {
 
@@ -38,8 +39,9 @@ class NewDropdown extends React.Component {
             this.imageRotation,
             {
                 toValue: rotationValue,
-                duration: 200,
-                easing: Easing.ease,
+                duration: 300,
+                easing: Easing.inOut(Easing.ease),
+                useNativeDriver: true
             },
         ).start();
 
@@ -49,7 +51,7 @@ class NewDropdown extends React.Component {
             this.setState({
                 selectedIndex: index,
                 selectedValue: this.props.options[index]
-            }, this.props.onValueChange(this.state.selectedValue, this.state.selectedIndex))
+            }, () => this.props.onValueChange(this.state.selectedValue, this.state.selectedIndex))
         }
 
     };
@@ -70,7 +72,7 @@ class NewDropdown extends React.Component {
                         />
                         <View style={{ borderRadius: 50 }}>
                             <Touchable background={Touchable.Ripple('grey', true)}
-                                       style={{ borderRadius: 50 }} onPress={() => this._toggle()}>
+                                style={{ borderRadius: 50 }} onPress={() => this._toggle()}>
                                 <Animated.Image
                                     style={{
                                         width: 14,
@@ -101,11 +103,10 @@ class NewDropdown extends React.Component {
                                     <View style={{ flex: 1 }} key={index}>
                                         <Touchable
                                             style={{ paddingVertical: 12 }}
-                                            // background={Touchable.Ripple('grey', true)}
                                             onPress={() => this._toggle(index)}
                                         >
                                             <Text
-                                                style={{ color: this.state.selectedIndex === index ? Color.COLOR_PRIMARY : Color.BLACK }}
+                                                style={{ color: (this.state.selectedIndex === index || this.state.selectedValue === value) ? Color.COLOR_PRIMARY : Color.BLACK }}
                                                 children={value}
                                             />
                                         </Touchable>
@@ -114,7 +115,7 @@ class NewDropdown extends React.Component {
                             }
                         </ScrollView>
                         :
-                        <View/>
+                        <View />
                 }
 
             </Animated.View>

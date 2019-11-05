@@ -1,10 +1,7 @@
-import {combineReducers} from 'redux'
-import {Action, Menu} from '../system/Collection'
+import { combineReducers } from 'redux'
+import { Action } from '../system/Collection'
 
-let dataState = {
-    activeMenu: Menu[0],
-    sideMenuOpened: false
-}
+let dataState = {}
 
 let authState = {}
 
@@ -12,7 +9,7 @@ const authReducer = (state = authState, action) => {
     switch (action.type) {
 
         case Action.CHECK_SIGNED:
-            state = Object.assign({}, state, {signedIn: action.signedIn})
+            state = Object.assign({}, state, { signedIn: action.signedIn })
             return state
 
         case Action.CHANGE_STATE:
@@ -21,9 +18,9 @@ const authReducer = (state = authState, action) => {
 
         case Action.LOGIN_POST:
             console.log(state)
-            state = Object.assign({}, state, {username: action.username, password: action.password})
+            state = Object.assign({}, state, { username: action.username, password: action.password })
             return state
-    
+
         default:
             return state
     }
@@ -31,14 +28,6 @@ const authReducer = (state = authState, action) => {
 
 const mainReducer = (state = dataState, action) => {
     switch (action.type) {
-
-        case Action.CHANGE_MENU:
-            state = Object.assign({}, state, {activeMenu: action.activeMenu, sideMenuOpened: false})
-            return state
-
-        case Action.TOGGLE_MENU:
-            state = Object.assign({}, state, {sideMenuOpened: action.sideMenuOpened})
-            return state
 
         default:
             return state
