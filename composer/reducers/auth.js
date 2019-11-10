@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux'
 import { Action } from '../system/Collection'
 
-let dataState = {}
+var initialState = {
+    
+}
 
-let authState = {}
-
-const authReducer = (state = authState, action) => {
+const auth = (state = initialState, action) => {
     switch (action.type) {
 
         case Action.CHECK_SIGNED:
@@ -17,7 +16,6 @@ const authReducer = (state = authState, action) => {
             return state
 
         case Action.LOGIN_POST:
-            console.log(state)
             state = Object.assign({}, state, { username: action.username, password: action.password })
             return state
 
@@ -26,17 +24,4 @@ const authReducer = (state = authState, action) => {
     }
 }
 
-const mainReducer = (state = dataState, action) => {
-    switch (action.type) {
-
-        default:
-            return state
-
-    }
-}
-
-const rootReducer = combineReducers({
-    authReducer, mainReducer
-})
-
-export default rootReducer
+export default auth;

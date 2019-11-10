@@ -75,13 +75,8 @@ class CompositionPage extends Component {
 
     _onRefresh() {
         this.setState({
-            loading: index !== index
+            loading: this.state.index !== 0
         })
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("Prev State", prevState);
-        console.log("This State", this.state);
     }
 
     render() {
@@ -90,9 +85,7 @@ class CompositionPage extends Component {
             return el.category
         });
 
-        dropdownOptions.splice('0','0', 'All Composition');
-
-        console.log(dropdownOptions);
+        dropdownOptions.unshift('All Composition');
 
         return (
             <View style={styles.container}>
@@ -120,6 +113,7 @@ class CompositionPage extends Component {
                                         <View style={{ marginTop: LayoutConst.spacing }}>
                                             <FlatList
                                                 data={this.state.index === 0 ? this.state.data : this.state.data.filter((x) => x.category === this.state.value)}
+                                                extraData={this.state}
                                                 numColumns={2}
                                                 renderItem={({ item, index }) =>
                                                     <TouchableOpacity

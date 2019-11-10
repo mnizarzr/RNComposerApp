@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Color, LayoutConst } from "../../system/Collection";
 
-class DetailCompositionTable extends React.Component {
+class CompositionTable extends React.Component {
 
     constructor(props) {
         super(props)
@@ -12,7 +12,7 @@ class DetailCompositionTable extends React.Component {
 
     render() {
 
-        const { name, value, unit } = this.props.data
+        const { materialName, stock, unit } = this.props.data
 
         return <View style={{
             flex: 1,
@@ -27,7 +27,7 @@ class DetailCompositionTable extends React.Component {
                     fontSize: 16,
                     fontFamily: "Rubik-Bold"
                 }}
-                children={name}
+                children={materialName}
             />
             <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                 <Text
@@ -37,7 +37,7 @@ class DetailCompositionTable extends React.Component {
                         fontFamily: "Rubik-Regular",
                         marginEnd: 6
                     }}
-                    children={value}
+                    children={stock}
                 />
                 <Text
                     style={{
@@ -53,8 +53,8 @@ class DetailCompositionTable extends React.Component {
 
 }
 
-DetailCompositionTable.propTypes = {
+CompositionTable.propTypes = {
     data: PropTypes.object
 }
 
-export default connect()(DetailCompositionTable)
+export default connect()(CompositionTable)

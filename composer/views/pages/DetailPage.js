@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Color, LayoutConst } from '../../system/Collection';
-import DetailCompositionTable from '../components/DetailCompositionTable';
+import CompositionTable from '../components/CompositionTable';
 import Button from '../components/Button';
 import InputText from "../components/InputText";
 import Modal from 'react-native-modal';
@@ -28,23 +28,23 @@ class DetailPage extends React.Component {
             makeValue: 0,
             data: [
                 {
-                    'name': 'Brown Sugar',
-                    'value': 20,
+                    'materialName': 'Brown Sugar',
+                    'stock': 20,
                     'unit': 'gram',
                 },
                 {
-                    'name': 'Arabica Coffee',
-                    'value': 50,
+                    'materialName': 'Arabica Coffee',
+                    'stock': 50,
                     'unit': 'gram',
                 },
                 {
-                    'name': 'Milk',
-                    'value': 20,
+                    'materialName': 'Milk',
+                    'stock': 20,
                     'unit': 'gram',
                 },
                 {
-                    'name': 'Hot Water',
-                    'value': 150,
+                    'materialName': 'Hot Water',
+                    'stock': 150,
                     'unit': 'mililiter',
                 },
             ],
@@ -194,7 +194,7 @@ class DetailPage extends React.Component {
                 <FlatList
                     style={{ marginTop: LayoutConst.regularSpacing }}
                     data={this.state.data}
-                    renderItem={({ item, index }) => <DetailCompositionTable data={item}/>}
+                    renderItem={({ item, index }) => <CompositionTable data={item}/>}
                     keyExtractor={(item, index) => index.toString()}
                 />
             </View>

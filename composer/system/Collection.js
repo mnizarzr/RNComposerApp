@@ -1,27 +1,29 @@
 export const Action = {
-    LOGIN_POST : 'LOGIN_POST',
-    CHECK_SIGNED : 'CHECK_SIGNED',
-    CHANGE_STATE : 'CHANGE_STATE',
-    CHANGE_MENU : 'CHANGE_MENU',
-    TOGGLE_MENU : 'TOGGLE_MENU',
-    LOGOUT : 'LOGOUT'
+    LOGIN_POST: 'LOGIN_POST',
+    CHECK_SIGNED: 'CHECK_SIGNED',
+    CHANGE_STATE: 'CHANGE_STATE',
+    CHANGE_MENU: 'CHANGE_MENU',
+    TOGGLE_MENU: 'TOGGLE_MENU',
+    LOGOUT: 'LOGOUT',
+    ADD_MATERIAL: 'ADD_MATERIAL',
+    GET_MATERIAL: 'GET_MATERIAL'
 }
 
 export const AuthKey = {
-    IS_SIGNED : 'IS_SIGNED',
-    USERNAME : 'USERNAME',
-    PASSWORD : 'PASSWORD',
-    TOKEN : 'TOKEN',
+    IS_SIGNED: 'IS_SIGNED',
+    USERNAME: 'USERNAME',
+    PASSWORD: 'PASSWORD',
+    TOKEN: 'TOKEN',
 
 }
 
 export const Color = {
-    WHITE : '#FFFFFF',
-    BLACK : '#444444',
-    DARK_GREY : '#777777',
-    GREY : '#AAAAAA',
-    LIGHT_GREY : '#F2F2F2',
-    COLOR_PRIMARY : '#F2C94C'
+    WHITE: '#FFFFFF',
+    BLACK: '#444444',
+    DARK_GREY: '#777777',
+    GREY: '#AAAAAA',
+    LIGHT_GREY: '#F2F2F2',
+    COLOR_PRIMARY: '#F2C94C'
 }
 
 export const LayoutConst = {
@@ -38,5 +40,5 @@ export const LayoutConst = {
     smallTextSize: 14,
 
     regularIconSize: 22,
-    smallIconSize:16
+    smallIconSize: 16
 }

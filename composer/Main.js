@@ -26,7 +26,7 @@ class Main extends Component {
 
 function mapStateToProps(state, props) {
     return {
-        signedIn: state.authReducer.signedIn,
+        signedIn: state.auth.signedIn,
     };
 }
 
