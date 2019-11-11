@@ -40,6 +40,7 @@ class CreateAddMaterialPage extends React.Component {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: LayoutConst.spacing }}>
                     <Button
+                        onPress={() => this.props.navigation.goBack()}
                         backgroundColor={Color.LIGHT_GREY}
                         style={{ width: 90 }}
                         value="Back"

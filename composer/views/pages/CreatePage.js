@@ -37,9 +37,9 @@ class CreatePage extends React.Component {
                     category: 'Drink',
                 },
             ],
-            image: null,
+            image: '',
             dropdownValue: '',
-            dropdownIndex: 0,
+            dropdownIndex: null,
             modalVisibility: false,
             newCategory: '',
             compositionName: '',
@@ -77,11 +77,14 @@ class CreatePage extends React.Component {
 
     render() {
 
+        let isFilled = (this.state.compositionName !== '' && this.state.description !== '' && this.state.dropdownIndex !== null && this.state.image !== '');
+
         let dropdownOptions = this.state.dataCategory.map(el => {
             return el.category
         });
 
         return (
+
             <View style={styles().container}>
 
                 {/* Modal */}
@@ -136,7 +139,7 @@ class CreatePage extends React.Component {
                         <TouchableOpacity onPress={() => this._imagePicker()}>
                             <View style={styles().imageContainer}>
                                 {
-                                    this.state.image === null ?
+                                    this.state.image === '' ?
                                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                             <Image source={require('../../assets/images/plus-dark.png')} />
                                             <Text
@@ -182,11 +185,11 @@ class CreatePage extends React.Component {
                     />
 
                     {/* Dropdown */}
-                        <Dropdown
-                            title="Select Category"
-                            onValueChange={(value, index) => this.setState({ dropdownValue: value, dropdownIndex: index })}
-                            options={dropdownOptions}
-                        />
+                    <Dropdown
+                        title="Select Category"
+                        onValueChange={(value, index) => this.setState({ dropdownValue: value, dropdownIndex: index })}
+                        options={dropdownOptions}
+                    />
                     {/* End of Dropdown */}
 
                     {/* Button Next */}
@@ -194,11 +197,12 @@ class CreatePage extends React.Component {
                     {/* <View style={{width: '100%' , minHeight: width/2, alignItems:'flex-end'}}> */}
 
                     <Button
+                        disabled={isFilled ? false : true}
                         onPress={() => this.props.navigation.navigate("AddMaterialPage")}
                         backgroundColor={
-                            this.state.compositionName === '' || null || this.state.description === '' || null || this.state.dropdownIndex === 0 || null ?
-                                Color.LIGHT_GREY :
-                                Color.COLOR_PRIMARY
+                            isFilled ?
+                                Color.COLOR_PRIMARY :
+                                Color.LIGHT_GREY
                         }
                         style={{ position: 'absolute', width: 100, bottom: 40, right: 20 }}
                         value={'Next'}

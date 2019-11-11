@@ -4,7 +4,7 @@ import { Color, LayoutConst } from '../../system/Collection';
 import PropTypes from 'prop-types';
 
 type Props = {
-    hasRef? : () => void
+    hasRef?: () => void
 };
 
 export default class InputText extends React.Component<TextInputProps, Props> {
@@ -35,9 +35,8 @@ export default class InputText extends React.Component<TextInputProps, Props> {
             {...this.props}
             ref={ref => (this.inputRef = ref)}
             style={[styles(this.props).container, this.props.style, this.state.isFocused ? {
-                borderColor: Color.COLOR_PRIMARY,
-                borderWidth: 1
-            } : undefined]}
+                borderColor: Color.COLOR_PRIMARY
+            } : { borderColor: 'transparent' }]}
             placeholder={this.props.placeholder}
             onSubmitEditing={this.onSubmitEditing.bind(this)}
             onFocus={this._handleInputFocus}
@@ -56,6 +55,7 @@ const styles = (props) => StyleSheet.create({
         backgroundColor: props.background,
         padding: LayoutConst.smallSpacing,
         borderRadius: props.borderRadius || LayoutConst.roundedCorner,
+        borderWidth: 1,
         fontFamily: 'OpenSans-Regular'
     }
 })
