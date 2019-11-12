@@ -26,7 +26,7 @@ class DetailPage extends React.Component {
         this.state = {
             modalVisibility: false,
             makeValue: 0,
-            data: [
+            materials: [
                 {
                     'materialName': 'Brown Sugar',
                     'stock': 20,
@@ -55,6 +55,11 @@ class DetailPage extends React.Component {
         this.decrementValue = this._decrementValue.bind(this);
         this.stopPressInterval = this._stopPressInterval.bind(this);
     }
+
+    componentDidMount() {
+        console.log(this.props)
+    }
+
 
     _closeModal = () => this.setState({ modalVisibility: false });
 
@@ -99,30 +104,30 @@ class DetailPage extends React.Component {
 
                             {
                                 this.state.makeValue == 0 ?
-                                <Image
-                                    style={styles().icon}
-                                    source={require('../../assets/images/minus-circle.png')}
-                                />
-                                :
-                                <TouchableOpacity
-                                    onPressIn={this.decrementValue}
-                                    onPressOut={this.stopPressInterval}
-                                >
                                     <Image
                                         style={styles().icon}
                                         source={require('../../assets/images/minus-circle.png')}
                                     />
-                                </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity
+                                        onPressIn={this.decrementValue}
+                                        onPressOut={this.stopPressInterval}
+                                    >
+                                        <Image
+                                            style={styles().icon}
+                                            source={require('../../assets/images/minus-circle.png')}
+                                        />
+                                    </TouchableOpacity>
                             }
 
                             <View style={styles().makeValue}>
                                 <InputText
                                     value={this.state.makeValue.toString()}
-                                    onChangeText={(text)=> this.setState({makeValue: text})}
+                                    onChangeText={(text) => this.setState({ makeValue: text })}
                                     returnKeyType="next"
                                     keyboardType={'number-pad'}
                                     background={Color.LIGHT_GREY}
-                                    // style={{ borderWidth: 1, borderColor: Color.COLOR_PRIMARY, minWidth: 50}}
+                                // style={{ borderWidth: 1, borderColor: Color.COLOR_PRIMARY, minWidth: 50}}
                                 />
                             </View>
 
@@ -148,20 +153,20 @@ class DetailPage extends React.Component {
             <View style={{ width: width, height: height / 3 }}>
                 <ImageBackground
                     style={{ flex: 1, justifyContent: 'flex-end' }}
-                    source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg' }}
+                    source={{ uri: this.props.data.productPicture }}
                 >
                     <View style={styles().titleContainer}>
                         <Text
                             style={{ color: Color.WHITE, fontSize: 20, fontFamily: 'Rubik-Bold' }}
-                            children="Title"
+                            children={this.props.data.name}
                         />
                         <Text
                             style={{ color: Color.COLOR_PRIMARY, fontSize: 14, fontFamily: 'Rubik-Regular' }}
-                            children="Category"
+                            children={this.props.data.category}
                         />
                         <Text
                             style={{ color: Color.WHITE, fontSize: 14, fontFamily: 'Rubik-Regular' }}
-                            children="Description"
+                            children={this.props.data.description}
                         />
                     </View>
 
@@ -193,8 +198,8 @@ class DetailPage extends React.Component {
                 />
                 <FlatList
                     style={{ marginTop: LayoutConst.regularSpacing }}
-                    data={this.state.data}
-                    renderItem={({ item, index }) => <CompositionTable data={item}/>}
+                    data={this.state.materials}
+                    renderItem={({ item, index }) => <CompositionTable data={item} />}
                     keyExtractor={(item, index) => index.toString()}
                 />
             </View>
@@ -203,7 +208,7 @@ class DetailPage extends React.Component {
                 <Button
                     style={{ alignItems: 'center' }}
                     onPress={() => this.setState({ modalVisibility: true })}
-                    value="Make this composition"/>
+                    value="Make this composition" />
             </View>
 
         </View>;
@@ -248,8 +253,8 @@ const styles = props => StyleSheet.create({
     },
 });
 
-function mapStateToProps(state, props) {
-    return {};
+const mapStateToProps = (state, props) => {
+    return Object.assign({}, state.material, props.navigation.state.params)
 }
 
 export default connect(mapStateToProps)(DetailPage);

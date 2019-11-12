@@ -26,34 +26,44 @@ class CompositionPage extends Component {
         this.state = {
             data: [
                 {
+                    id: 0,
                     name: 'Espresso',
                     category: 'Drink',
-                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
+                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg',
+                    description: 'Kopi puaaaaiiitttt'
                 },
                 {
+                    id: 1,
                     name: 'Cocholaos',
                     category: 'Food',
-                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
+                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg',
+                    description: 'Panganan gak jelas'
                 },
                 // {
+                //     id: 2,
                 //     name: 'Chaos',
                 //     category: 'Snack',
                 //     productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
                 // },
                 // {
+                //     id: 3,
                 //     name: 'Chaos',
                 //     category: 'Snack',
                 //     productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
                 // },
                 {
+                    id: 4,
                     name: 'Chaos',
                     category: 'Snack',
-                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
+                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg',
+                    description: 'Ojo dituku'
                 },
                 {
+                    id: 5,
                     name: 'Cocholaos',
                     category: 'Food',
-                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg'
+                    productPicture: 'https://cdn.pixabay.com/photo/2015/10/12/14/54/coffee-983955_960_720.jpg',
+                    description: 'Iki yo ojo dituku'
                 }
             ],
             dataCategory: [
@@ -117,7 +127,7 @@ class CompositionPage extends Component {
                                                 numColumns={2}
                                                 renderItem={({ item, index }) =>
                                                     <TouchableOpacity
-                                                        onPress={() => this.props.navigation.navigate('Detail')}
+                                                        onPress={() => this.props.navigation.navigate('Detail', { data: item })}
                                                     >
 
                                                         <Card
