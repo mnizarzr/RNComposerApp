@@ -56,11 +56,6 @@ class DetailPage extends React.Component {
         this.stopPressInterval = this._stopPressInterval.bind(this);
     }
 
-    componentDidMount() {
-        console.log(this.props)
-    }
-
-
     _closeModal = () => this.setState({ modalVisibility: false });
 
     _incrementValue = () => {
@@ -123,7 +118,8 @@ class DetailPage extends React.Component {
                             <View style={styles().makeValue}>
                                 <InputText
                                     value={this.state.makeValue.toString()}
-                                    onChangeText={(text) => this.setState({ makeValue: text })}
+                                    defaultValue={this.state.makeValue.toString()}
+                                    onChangeText={(text)=> this.setState({makeValue: text})}
                                     returnKeyType="next"
                                     keyboardType={'number-pad'}
                                     background={Color.LIGHT_GREY}

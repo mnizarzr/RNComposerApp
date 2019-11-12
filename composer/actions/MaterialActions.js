@@ -24,3 +24,22 @@ export function getMaterial() {
         dispatch({ type: Action.GET_MATERIAL, dataMaterial: JSON.parse(item) })
     }
 }
+
+export function addSelectedMaterial(data) {
+    return (dispatch, getState) => {
+        let { selectedMaterial } = getState().material;
+        selectedMaterial.push(data)
+
+        dispatch({ type: Action.ADD_SELECTED_MATERIAL, selectedMaterial })
+    }
+}
+
+export function deleteSelectedMaterial(data) {
+    return (dispatch, getState) => {
+        let { selectedMaterial } = getState().material;
+        let index = selectedMaterial.indexOf(data);
+        selectedMaterial.splice(index, 1)
+
+        dispatch({ type: Action.DELETE_SELECTED_MATERIAL, selectedMaterial })
+    }
+}

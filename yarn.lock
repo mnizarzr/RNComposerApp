@@ -5948,6 +5948,11 @@ react-native-clcasher@1.0.0:
   dependencies:
     mock-async-storage "^1.0.3"
 
+react-native-draggable-flatlist@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-draggable-flatlist/-/react-native-draggable-flatlist-1.1.9.tgz#b8f58122f639841c83aa1d913b2e3e9f9507bfe5"
+  integrity sha512-Hga/kEFc+Undx2Y1FzkozWHRWvRz7dJobl5Kg1+xmd9JABS8YIYZWKboSAPmiTHD3FrlVJGIw/mlK5JZP0rJfw==
+
 react-native-fetch-blob@0.10.8:
   version "0.10.8"
   resolved "https://registry.yarnpkg.com/react-native-fetch-blob/-/react-native-fetch-blob-0.10.8.tgz#4fc256abae0cb5f10e7c41f28c11b3ff330d72a9"

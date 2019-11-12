@@ -46,7 +46,7 @@ class MaterialPage extends Component {
                         <FlatList
                             data={this.props.data}
                             extraData={this.props.data}
-                            renderItem={({ item, index }) => <CompositionTable data={item} index={index} />}
+                            renderItem={({ item, index }) => <CompositionTable data={item} navigation={this.props.navigation} index={index} />}
                             keyExtractor={(item, index) => index.toString()}
                         />
                 }

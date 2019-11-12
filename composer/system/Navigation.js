@@ -116,6 +116,15 @@ const CompositionStack = createStackNavigator(
                 ),
                 headerTitleStyle: styles.headerTitleSmall
             })
+        },
+        AddNewMaterial: {
+            screen: AddNewMaterial,
+            navigationOptions: ({ navigation }) => ({
+                title: 'Add New Material',
+                headerStyle: styles.headerStyle,
+                headerLeft: <Header navigation={navigation} back={true}/>,
+                headerTitleStyle: styles.headerTitle,
+            })
         }
     }
 )

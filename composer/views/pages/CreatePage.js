@@ -132,7 +132,7 @@ class CreatePage extends React.Component {
 
                 {/* Main View */}
 
-                <KeyboardAvoidingView style={{ flex: 1 }} behavior={'padding'} enabled>
+                <KeyboardAvoidingView style={{ flex: 1, padding: 0 }} behavior={'padding'} enabled>
 
                     <View style={{ alignItems: 'center', marginVertical: 20, width: '100%' }}>
 
@@ -197,7 +197,7 @@ class CreatePage extends React.Component {
                     {/* <View style={{width: '100%' , minHeight: width/2, alignItems:'flex-end'}}> */}
 
                     <Button
-                        disabled={isFilled ? false : true}
+                        // disabled={isFilled ? false : true}
                         onPress={() => this.props.navigation.navigate("AddMaterialPage")}
                         backgroundColor={
                             isFilled ?
