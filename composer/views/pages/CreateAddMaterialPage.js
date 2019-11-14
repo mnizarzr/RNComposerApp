@@ -6,12 +6,15 @@ import Button from "../components/Button";
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions/MaterialActions';
 import CompositionTable from "../components/CompositionTable";
+import DraggableFlatList from 'react-native-draggable-flatlist';
 
 class CreateAddMaterialPage extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.state = {
+            data: this.props.selectedMaterial
+        }
         this.subscribe = null;
     }
 
@@ -25,29 +28,45 @@ class CreateAddMaterialPage extends React.Component {
     //     this.subscribe.remove();
     // }
 
+    rearrangeSelectedMaterial(data, oldIndex, newIndex) {
+        const movingItem = data[oldIndex];
+        data.splice(oldIndex, 1);
+        data.splice(newIndex, 0, movingItem);
+        console.log('data :' ,data);
+        console.log('oldIndex :' ,oldIndex);
+        console.log('newIndex :' ,newIndex);
+        console.log('moving :' ,movingItem);
+        
+        return this.setState({ data: data });
+    }
+
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <Text
+                    style={{
+                        color: Color.GREY,
+                        fontFamily: "OpenSans-Regular",
+                        fontSize: 13,
+                        marginHorizontal: LayoutConst.spacing
+                    }}
+                    children="Materials in this composition"
+                />
                 {
                     this.props.selectedMaterial.length > 0
                         ?
-                        <FlatList
-                            data={this.props.selectedMaterial}
-                            extraData={this.props.selectedMaterial}
-                            renderItem={({ item, index }) => <CompositionTable data={item} />}
+                        <DraggableFlatList
+                            data={this.state.data}
+                            extraData={this.state.data}
+                            scrollPercent={5}
+                            renderItem={({ item, index, move, moveEnd }) => <CompositionTable data={item} move={move} moveEnd={moveEnd} />}
                             keyExtractor={(item, index) => index.toString()}
+                            style={{ marginVertical: 25 }}
+                            onMoveEnd={({ data, to, from }) => this.rearrangeSelectedMaterial(data, from, to)}
                         />
                         :
                         <View style={{ flex: 1 }}>
-                            <Text
-                                style={{
-                                    color: Color.GREY,
-                                    fontFamily: "OpenSans-Regular",
-                                    fontSize: 13,
-                                    marginHorizontal: LayoutConst.spacing
-                                }}
-                                children="Materials in this composition"
-                            />
+
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text
                                     style={{
@@ -77,6 +96,18 @@ class CreateAddMaterialPage extends React.Component {
                                 />
                             </View>
                         </View>
+                }
+                {
+                    this.props.selectedMaterial.length > 0
+                        ?
+                        <View style={{ alignContent: 'flex-start' }}>
+                            <Button
+                                backgroundColor={Color.LIGHT_GREY}
+                                value={'Add or remove material'}
+                                onPress={() => this.props.navigation.navigate("SelectMaterial")} />
+                        </View>
+                        :
+                        <View />
                 }
 
             </View>
